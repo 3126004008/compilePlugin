@@ -1,0 +1,41 @@
+apply plugin: 'maven'
+
+def MAVEN_LOCAL_PATH = uri('D:/release')
+def ARTIFACT_ID = 'plugindemo'
+def VERSION_NAME = '1.0.5'
+def GROUP_ID = 'com.demo.plugins'
+
+/**
+ * 发布的操作：（在Terminal中）
+ * gradlew uploadArchives
+ * 或者Gradle栏-->:plugindemo-->upload-->uploadArchives
+ */
+
+////发布在本地，../plugin 文件夹
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        repository(url: uri('../plugin'))
+//        pom.groupId = 'com.totcy.android'
+//        pom.artifactId = 'gradle-plugin-test'
+//        pom.version = '1.0.0'
+//    }
+//}
+
+//设置maven deployer
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = GROUP_ID
+            pom.artifactId = ARTIFACT_ID
+            pom.version = VERSION_NAME
+            //文件发布到下面目录
+            repository(url: uri('D:/release'))
+//            repository(url: MAVEN_LOCAL_PATH)
+//            pom.project {
+//                groupId GROUP_ID
+//                artifactId ARTIFACT_ID
+//                version VERSION_NAME
+//            }
+        }
+    }
+}

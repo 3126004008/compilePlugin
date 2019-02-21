@@ -1,0 +1,42 @@
+apply plugin: 'groovy' //引入groovy插件
+apply plugin: 'maven'
+def ARTIFACT_ID = 'compilelib'
+def VERSION_NAME = '1.0.5'
+def GROUP_ID = 'com.demo.plugins'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = ARTIFACT_ID
+    artifact = ARTIFACT_ID
+    libraryName = ARTIFACT_ID
+    libraryVersion = VERSION_NAME
+    libraryDescription = 'gradle plugin for buid component'
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+//发布 Jcenter
+apply from: 'bintray.gradle'
+//本地
+apply from: 'maven.gradle'
+
+dependencies {
+    compile 'com.android.tools.build:gradle:2.3.2'
+    compile 'commons-validator:commons-validator:1.4.0'
+    compile group: 'org.javassist', name: 'javassist', version: '3.23.1-GA'
+    //gradle sdk
+    compile gradleApi()
+    //groovy sdk
+    compile localGroovy()
+//    testCompile deps.junit
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+group =GROUP_ID  // 组名 jcenter中的仓库路径
+
+version =VERSION_NAME // 版本
